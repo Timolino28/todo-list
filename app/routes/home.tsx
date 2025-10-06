@@ -1,13 +1,18 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Mach!" },
+    { name: "description", content: "Your todo-list to get shit done!" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <>
+      {/* Erstmal noch NavBar bauen -> die machen wir handmade */}
+      {/* Hier kommt die Landingpage hin - übe das ein bisschen hinsichtlich Design etc. */}
+      Hallo, Du Ferkel
+    </>
+  );
 }

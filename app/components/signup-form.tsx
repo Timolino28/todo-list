@@ -53,7 +53,7 @@ export function SignupForm({
             />
           </Field>
           <Field>
-            <Button type="submit" className="cursor-pointer">
+            <Button type="submit" className="bg-oranje cursor-pointer">
               Create Account
             </Button>
           </Field>

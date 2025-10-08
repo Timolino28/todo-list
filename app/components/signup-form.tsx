@@ -1,5 +1,5 @@
-import { GalleryVerticalEnd } from "lucide-react";
 import { Link } from "react-router";
+import { useState } from "react";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -16,6 +16,16 @@ export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(mail, password);
+    setMail("");
+    setPassword("");
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form>
@@ -42,6 +52,8 @@ export function SignupForm({
               placeholder="m@example.com"
               required
               className="border-1 border-gray-300/20"
+              value={mail}
+              onChange={(e) => setMail(e.target.value)}
             />
           </Field>
           <Field>
@@ -54,14 +66,17 @@ export function SignupForm({
               placeholder="password"
               required
               className="border-1 border-gray-300/20"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Field>
           <Field>
             <Button
               type="submit"
               className="bg-oranje cursor-pointer hover:bg-oranje/90"
+              onClick={handleSubmit}
             >
-              Login
+              Sign Up
             </Button>
           </Field>
           <FieldSeparator>Or</FieldSeparator>

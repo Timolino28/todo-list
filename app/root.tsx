@@ -50,7 +50,7 @@ export default function App() {
   return (
     <>
       {showNavbar && <Navbar />}
-      <Outlet />;
+      <Outlet />
     </>
   );
 }

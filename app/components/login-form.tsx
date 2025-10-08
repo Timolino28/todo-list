@@ -1,4 +1,5 @@
 import { GalleryVerticalEnd } from "lucide-react";
+import { Link } from "react-router";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -21,10 +22,17 @@ export function LoginForm({
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <h1 className="text-2xl font-bold text-gray-300">
-              Welcome to Mach!
+              Welcome to{" "}
+              <Link to={"/"}>
+                {" "}
+                <span className="text-oranje">Mach!</span>
+              </Link>
             </h1>
             <FieldDescription className="text-gray-400">
-              Don&apos;t have an account? <a href="/signup">Sign up</a>
+              Don&apos;t have an account?{" "}
+              <a href="/signup" className="hover:text-gray-400">
+                Sign up
+              </a>
             </FieldDescription>
           </div>
           <Field>

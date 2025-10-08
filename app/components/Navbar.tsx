@@ -11,7 +11,7 @@ function navbar() {
   return (
     <div className="fixed top-0 left-0 w-full flex justify-between items-center p-5 border-b-[0.5px] border-gray-300/20">
       <Link to={"/"}>
-        <div className="text-xl text-gray-300 font-bold">Mach!</div>
+        <div className="text-xl text-oranje font-bold">Mach!</div>
       </Link>
 
       <div>

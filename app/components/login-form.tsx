@@ -1,5 +1,6 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
+import { signIn } from "~/services/authService";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -19,11 +20,19 @@ export function LoginForm({
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(mail, password);
-    setMail("");
-    setPassword("");
+
+    const { data, error } = await signIn(mail, password);
+
+    if (error) {
+      alert("Login fehlgeschlage" + error.message);
+    } else {
+      console.log("Login erfolgreich", data);
+      navigate("/app");
+    }
   };
 
   return (

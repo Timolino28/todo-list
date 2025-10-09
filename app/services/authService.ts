@@ -1,8 +1,12 @@
 import { supabase } from "~/lib/supabase";
-import type { AuthError, User, Session } from "@supabase/supabase-js";
+import { AuthError, type User, type Session } from "@supabase/supabase-js";
 
 export type SignUpResult = {
   data: { user: User | null; session: Session | null } | null;
+  error: AuthError | Error | null;
+};
+
+export type AuthResult = {
   error: AuthError | Error | null;
 };
 
@@ -32,9 +36,9 @@ const signIn = async (email: string, password: string) => {
   return { data, error: null };
 };
 
-const signOut = async () => {
+const signOut = async (): Promise<AuthResult> => {
   const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  return { error: error ?? null };
 };
 
 export { signUp, signIn, signOut };

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { signUp } from "~/services/authService";
 
@@ -12,7 +12,6 @@ import {
   FieldSeparator,
 } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
-import { sign } from "crypto";
 
 export function SignupForm({
   className,
@@ -20,6 +19,8 @@ export function SignupForm({
 }: React.ComponentProps<"div">) {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ export function SignupForm({
     } else {
       console.log("Registrierung erfolgreich", data);
       alert("Check deine E-Mail für die Bestätigung!");
+      navigate("/app");
     }
 
     setMail("");

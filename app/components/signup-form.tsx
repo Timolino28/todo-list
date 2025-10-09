@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useState } from "react";
+import { signUp } from "~/services/authService";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -11,6 +12,7 @@ import {
   FieldSeparator,
 } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
+import { sign } from "crypto";
 
 export function SignupForm({
   className,
@@ -19,9 +21,19 @@ export function SignupForm({
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(mail, password);
+
+    const { data, error } = await signUp(mail, password);
+
+    if (error) {
+      console.error("Fehler beim Registrieren", error.message);
+      alert(error.message);
+    } else {
+      console.log("Registrierung erfolgreich", data);
+      alert("Check deine E-Mail für die Bestätigung!");
+    }
+
     setMail("");
     setPassword("");
   };

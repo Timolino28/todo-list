@@ -17,7 +17,10 @@ function navbar() {
       <div>
         <ul className="flex gap-10">
           {links.map((link) => (
-            <li className=" text-gray-300 text-[14px] md:text-[16px]">
+            <li
+              key={link.name}
+              className=" text-gray-300 text-[14px] md:text-[16px]"
+            >
               <a
                 href={link.link}
                 className="hover:border-b-1 hover:border-gray-300"

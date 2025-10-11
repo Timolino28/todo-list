@@ -5,6 +5,8 @@ import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function Header() {
+  const today = new Date();
+
   const navigate = useNavigate();
 
   const handelSignOut = async () => {
@@ -21,7 +23,10 @@ function Header() {
   return (
     <div className="flex justify-between items-center md:p-10 p-5">
       <div className="md:text-4xl text-2xl font-bold text-gray-300">
-        Monat, Jahr
+        {today.toLocaleDateString("de-DE", {
+          month: "long",
+          year: "numeric",
+        })}
       </div>
       <div className="flex items-center md:gap-10 gap-5">
         <div className="flex md:gap-3 gap-2">

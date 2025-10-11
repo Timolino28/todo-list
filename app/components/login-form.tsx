@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { useState } from "react";
-import { signIn } from "~/services/authService";
+import { signIn, signInWithGoogle } from "~/services/authService";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -95,6 +95,7 @@ export function LoginForm({
           <Button
             variant="outline"
             type="button"
+            onClick={signInWithGoogle}
             className="cursor-pointer bg-gray-200 hover:bg-gray-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

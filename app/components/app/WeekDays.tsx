@@ -1,13 +1,24 @@
-function WeekDays() {
+import { type WeekDay } from "~/utils/getCurrentWeek";
+
+type WeekDaysProps = {
+  day: WeekDay;
+};
+
+function WeekDays({ day }: WeekDaysProps) {
+  const dayNumber = day.date.getDate();
+  const shortWeekday = day.shortLabel;
+
   return (
     <>
       <div className="w-full">
-        {/* Header */}
         <div className="flex justify-between border-b-2 border-gray-300">
           <div>
-            <h2 className="md:text-xl font-bold text-gray-300">11. Oct</h2>
+            <h2 className="md:text-xl font-bold text-gray-300">
+              {dayNumber}.{" "}
+              {day.date.toLocaleDateString("de-DE", { month: "short" })}
+            </h2>
           </div>
-          <div className="md:text-xl text-gray-300/40">Sa</div>
+          <div className="md:text-xl text-gray-300/40">{shortWeekday}</div>
         </div>
 
         {/* Input-Container */}

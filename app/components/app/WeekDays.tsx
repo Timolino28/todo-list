@@ -1,4 +1,4 @@
-import { type WeekDay } from "~/utils/getCurrentWeek";
+import { type WeekDay } from "~/utils/getWeekdays";
 
 type WeekDaysProps = {
   day: WeekDay;

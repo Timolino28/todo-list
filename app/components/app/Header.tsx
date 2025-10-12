@@ -4,7 +4,13 @@ import { signOut } from "~/services/authService";
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-function Header() {
+type HeaderProps = {
+  onPrevWeek: () => void;
+  onNextWeek: () => void;
+  onResetWeek: () => void;
+};
+
+function Header({ onPrevWeek, onNextWeek, onResetWeek }: HeaderProps) {
   const today = new Date();
 
   const navigate = useNavigate();
@@ -30,10 +36,16 @@ function Header() {
       </div>
       <div className="flex items-center md:gap-10 gap-5">
         <div className="flex md:gap-3 gap-2">
-          <Button className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-neutral-700 hover:bg-neutral-700 cursor-pointer rounded-full border-1 border-gray-300/20 hover:border-gray-300/50">
+          <Button
+            onClick={onPrevWeek}
+            className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-neutral-700 hover:bg-neutral-700 cursor-pointer rounded-full border-1 border-gray-300/20 hover:border-gray-300/50"
+          >
             <FaChevronLeft className="text-gray-300" />
           </Button>
-          <Button className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-neutral-700 hover:bg-neutral-700 cursor-pointer rounded-full border-1 border-gray-300/20 hover:border-gray-300/50">
+          <Button
+            onClick={onNextWeek}
+            className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-neutral-700 hover:bg-neutral-700 cursor-pointer rounded-full border-1 border-gray-300/20 hover:border-gray-300/50"
+          >
             <FaChevronRight className="text-gray-300" />
           </Button>
         </div>

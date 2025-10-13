@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { signOut } from "~/services/authService";
+import { type WeekDay } from "~/utils/getWeekdays";
 
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -8,9 +9,10 @@ type HeaderProps = {
   onPrevWeek: () => void;
   onNextWeek: () => void;
   onResetWeek: () => void;
+  weeks: WeekDay[];
 };
 
-function Header({ onPrevWeek, onNextWeek, onResetWeek }: HeaderProps) {
+function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
   const today = new Date();
 
   const navigate = useNavigate();
@@ -26,13 +28,15 @@ function Header({ onPrevWeek, onNextWeek, onResetWeek }: HeaderProps) {
     }
   };
 
+  const currentMonth = weeks[0]?.date.toLocaleString("de-DE", {
+    month: "long",
+  });
+  const currentYear = weeks[0]?.date.getFullYear();
+
   return (
     <div className="flex justify-between items-center md:p-10 p-5">
       <div className="md:text-4xl text-2xl font-bold text-gray-300">
-        {today.toLocaleDateString("de-DE", {
-          month: "long",
-          year: "numeric",
-        })}
+        {currentMonth} {currentYear}
       </div>
       <div className="flex items-center md:gap-10 gap-5">
         <div className="flex md:gap-3 gap-2">

@@ -39,6 +39,14 @@ function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
         {currentMonth} {currentYear}
       </div>
       <div className="flex items-center md:gap-10 gap-5">
+        <div>
+          <Button
+            className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto"
+            onClick={onResetWeek}
+          >
+            Zurück
+          </Button>
+        </div>
         <div className="flex md:gap-3 gap-2">
           <Button
             onClick={onPrevWeek}

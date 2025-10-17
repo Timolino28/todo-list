@@ -4,6 +4,24 @@ import { type WeekDay } from "~/utils/getWeekdays";
 
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { FiLogOut } from "react-icons/fi";
+import { PiGearFill } from "react-icons/pi";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 type HeaderProps = {
   onPrevWeek: () => void;
@@ -61,13 +79,31 @@ function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
             <FaChevronRight className="text-gray-300" />
           </Button>
         </div>
+
         <div>
-          <Button
-            className="cursor-pointer bg-red-400 hover:bg-red-400 border-1 border-red-500/20 hover:border-red-100/50 h-8 w-20 md:h-10 md:px-4 md:w-auto"
-            onClick={handelSignOut}
-          >
-            Sign Out
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-gray-300 hover:bg-gray-300 cursor-pointer rounded-full border-1 border-neutral-200/20 hover:border-gray-300/80">
+                <HiDotsHorizontal className="text-neutral-700" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-gray-300">
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="cursor-pointer bg-gray-300 focus:bg-gray-300">
+                  <PiGearFill />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={handelSignOut}
+                  className="cursor-pointer bg-gray-300 focus:bg-gray-300"
+                >
+                  <FiLogOut />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ function Calendar() {
         onNextWeek={() => setWeekOffset((prev) => prev + 1)}
         onResetWeek={() => setWeekOffset(0)}
         weeks={weeks}
+        weekOffset={weekOffset}
       />
       <WeekDays weeks={weeks} />;
     </>

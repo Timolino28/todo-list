@@ -4,22 +4,16 @@ import { type WeekDay } from "~/utils/getWeekdays";
 
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { HiDotsHorizontal } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { PiGearFill } from "react-icons/pi";
+import { RxAvatar } from "react-icons/rx";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
@@ -28,11 +22,16 @@ type HeaderProps = {
   onNextWeek: () => void;
   onResetWeek: () => void;
   weeks: WeekDay[];
+  weekOffset: number;
 };
 
-function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
-  const today = new Date();
-
+function Header({
+  onPrevWeek,
+  onNextWeek,
+  onResetWeek,
+  weeks,
+  weekOffset,
+}: HeaderProps) {
   const navigate = useNavigate();
 
   const handelSignOut = async () => {
@@ -57,14 +56,17 @@ function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
         {currentMonth} {currentYear}
       </div>
       <div className="flex items-center md:gap-10 gap-5">
-        <div>
-          <Button
-            className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto"
-            onClick={onResetWeek}
-          >
-            Zurück
-          </Button>
-        </div>
+        {weekOffset !== 0 && (
+          <div>
+            <Button
+              className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto rounded-full"
+              onClick={onResetWeek}
+            >
+              Zurück
+            </Button>
+          </div>
+        )}
+
         <div className="flex md:gap-3 gap-2">
           <Button
             onClick={onPrevWeek}
@@ -84,7 +86,7 @@ function Header({ onPrevWeek, onNextWeek, onResetWeek, weeks }: HeaderProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className="md:w-10 w-8 md:h-10 h-8 flex items-center justify-center bg-gray-300 hover:bg-gray-300 cursor-pointer rounded-full border-1 border-neutral-200/20 hover:border-gray-300/80">
-                <HiDotsHorizontal className="text-neutral-700" />
+                <RxAvatar className="text-neutral-700 text-2xl" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-gray-300">

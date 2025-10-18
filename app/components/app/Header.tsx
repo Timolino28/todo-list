@@ -56,16 +56,16 @@ function Header({
         {currentMonth} {currentYear}
       </div>
       <div className="flex items-center md:gap-10 gap-5">
-        {weekOffset !== 0 && (
-          <div>
-            <Button
-              className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto rounded-full"
-              onClick={onResetWeek}
-            >
-              Zurück
-            </Button>
-          </div>
-        )}
+        <div
+          className={`transition-opacity duration-200 ${weekOffset !== 0 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        >
+          <Button
+            className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto rounded-full"
+            onClick={onResetWeek}
+          >
+            Zurück
+          </Button>
+        </div>
 
         <div className="flex md:gap-3 gap-2">
           <Button

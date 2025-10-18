@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { type WeekDay } from "~/utils/getWeekdays";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 type WeekDaysProps = {
   weeks: WeekDay[];
@@ -9,6 +10,7 @@ function WeekDays({ weeks }: WeekDaysProps) {
   const today = new Date();
 
   const [todos, setTodos] = useState<Record<string, string[]>>({});
+  const [doneMap, setDoneMap] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setTodos((prev) => {
@@ -29,6 +31,10 @@ function WeekDays({ weeks }: WeekDaysProps) {
       updatedDayTodos[index] = value;
       return { ...prev, [dayKey]: updatedDayTodos };
     });
+  };
+
+  const toggleDone = (key: string) => {
+    setDoneMap((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -64,13 +70,15 @@ function WeekDays({ weeks }: WeekDaysProps) {
                 {dayTodos.map((todo, index) => {
                   const firstEmptyIndex = dayTodos.findIndex((t) => t === "");
                   const isEditable = index === firstEmptyIndex;
+                  const todoKey = `${dayKey} - ${index}`;
+                  const isDone = doneMap[todoKey] ?? false;
 
                   return (
                     <div
                       key={index}
                       className={`py-1 border-b-1 ${isEditable ? "border-gray-300/40 hover:border-oranje" : "border-gray-300/40"}`}
                     >
-                      <label className="">
+                      <label className="flex justify-between items-center">
                         <input
                           type="text"
                           value={todo}
@@ -78,8 +86,16 @@ function WeekDays({ weeks }: WeekDaysProps) {
                             handleInputChange(dayKey, index, e.target.value)
                           }
                           disabled={!isEditable && todo === ""}
-                          className={`max-w-full bg-transparent outline-none text-gray-300 ${isEditable ? "cursor-auto  focus:shadow-md focus:p-2 " : ""}`}
+                          className={`flex-1 min-w-0 bg-transparent outline-none ${isDone ? "text-gray-300/50 line-through" : "text-gray-300"}  ${isEditable ? "cursor-auto  focus:shadow-md focus:p-2 " : ""}`}
                         />
+                        {todo && (
+                          <div
+                            onClick={() => toggleDone(todoKey)}
+                            className={`cursor-pointer ${isDone ? "text-gray-300/50" : "text-gray-300"}`}
+                          >
+                            <FaRegCheckCircle />
+                          </div>
+                        )}
                       </label>
                     </div>
                   );

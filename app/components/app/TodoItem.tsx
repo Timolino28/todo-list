@@ -34,7 +34,7 @@ function TodoItem({
           value={todo}
           onChange={(e) => onChange(dayKey, index, e.target.value)}
           disabled={!isEditable && todo === ""}
-          className={`flex-1 min-w-0 bg-transparent outline-none ${isDone ? "text-gray-500" : "text-gray-300"} ${isEditable ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"}`}
+          className={`flex-1 min-w-0 bg-transparent outline-none ${isDone ? "text-gray-500" : "text-gray-300"} ${isEditable ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"} ${todo ? "cursor-pointer" : "cursor-auto"}`}
         />
         {todo && (
           <div

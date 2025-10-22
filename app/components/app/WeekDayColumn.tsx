@@ -45,6 +45,7 @@ function WeekDayColumn({
         {todos.map((todo, index) => (
           <TodoItem
             key={index}
+            day={day}
             dayKey={dayKey}
             index={index}
             todo={todo}

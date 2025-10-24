@@ -49,14 +49,22 @@ function InputModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen && localValue !== todo) {
+          onChange(dayKey, index, localValue);
+        }
+        onClose();
+      }}
+    >
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
         className="bg-gray-300 py-5"
       >
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <div className="flex items-center gap-20 pb-10">
+            <div className="flex items-center justify-between pb-10">
               <h3>
                 {day.shortLabel}, {day.date.getDate()}.{" "}
                 {day.date.toLocaleDateString("de-DE", { month: "short" })}{" "}

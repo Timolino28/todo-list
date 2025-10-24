@@ -12,6 +12,7 @@ type Props = {
   doneMap: Record<string, boolean>;
   onChange: (dayKey: string, index: number, value: string) => void;
   onToggle: (key: string) => void;
+  onDelete: (dayKey: string, index: number, todoKey: string) => void;
 };
 
 function TodoItem({
@@ -23,6 +24,7 @@ function TodoItem({
   doneMap,
   onChange,
   onToggle,
+  onDelete,
 }: Props) {
   const [showModal, setShowModal] = useState(false);
 
@@ -73,6 +75,7 @@ function TodoItem({
           onClose={() => setShowModal(false)}
           onToggle={onToggle}
           onChange={onChange}
+          onDelete={onDelete}
         />
       )}
     </>

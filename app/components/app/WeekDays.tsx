@@ -7,7 +7,8 @@ type WeekDaysProps = {
 };
 
 function WeekDays({ weeks }: WeekDaysProps) {
-  const { todos, handleInputChange, doneMap, toggleDone } = useTodos(weeks);
+  const { todos, handleInputChange, doneMap, toggleDone, handleDelete } =
+    useTodos(weeks);
   const today = new Date();
 
   return (
@@ -21,6 +22,7 @@ function WeekDays({ weeks }: WeekDaysProps) {
           doneMap={doneMap}
           onChange={handleInputChange}
           onToggle={toggleDone}
+          onDelete={handleDelete}
         />
       ))}
     </div>

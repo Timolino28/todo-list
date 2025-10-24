@@ -15,6 +15,7 @@ type InputModal = {
   onClose: () => void;
   onToggle: (key: string) => void;
   onChange: (dayKey: string, index: number, value: string) => void;
+  onDelete: (dayKey: string, index: number, todoKey: string) => void;
 };
 
 function InputModal({
@@ -28,6 +29,7 @@ function InputModal({
   index,
   dayKey,
   onChange,
+  onDelete,
 }: InputModal) {
   const [localValue, setLocalValue] = useState(todo);
 
@@ -42,9 +44,7 @@ function InputModal({
   };
 
   const handleDelete = () => {
-    onChange(dayKey, index, "");
-    onToggle(todoKey);
-    setLocalValue("");
+    onDelete(dayKey, index, todoKey);
     onClose();
   };
 

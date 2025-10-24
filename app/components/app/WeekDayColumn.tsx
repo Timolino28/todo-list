@@ -8,6 +8,7 @@ type Props = {
   doneMap: Record<string, boolean>;
   onChange: (dayKey: string, index: number, value: string) => void;
   onToggle: (key: string) => void;
+  onDelete: (dayKey: string, index: number, todoKey: string) => void;
 };
 
 function WeekDayColumn({
@@ -17,6 +18,7 @@ function WeekDayColumn({
   doneMap,
   onChange,
   onToggle,
+  onDelete,
 }: Props) {
   const isToday = day.date.toDateString() === today.toDateString();
   const dayKey = day.date.toDateString();
@@ -53,6 +55,7 @@ function WeekDayColumn({
             doneMap={doneMap}
             onChange={onChange}
             onToggle={onToggle}
+            onDelete={onDelete}
           />
         ))}
       </div>

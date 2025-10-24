@@ -29,5 +29,19 @@ export const useTodos = (weeks: WeekDay[]) => {
     setDoneMap((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  return { todos, handleInputChange, doneMap, toggleDone };
+  const handleDelete = (dayKey: string, index: number, todoKey: string) => {
+    setTodos((prev) => {
+      const updated = [...prev[dayKey]];
+      updated[index] = "";
+      return { ...prev, [dayKey]: updated };
+    });
+
+    setDoneMap((prev) => {
+      const copy = { ...prev };
+      delete copy[todoKey];
+      return copy;
+    });
+  };
+
+  return { todos, handleInputChange, doneMap, toggleDone, handleDelete };
 };

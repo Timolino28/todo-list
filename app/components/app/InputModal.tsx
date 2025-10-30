@@ -4,39 +4,42 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { useState } from "react";
 
-type InputModal = {
+export type TodoItemType = {
+  id: string;
+  content: string;
+  is_done: boolean;
+  index_in_day: number;
+};
+
+type InputModalProps = {
   day: WeekDay;
-  todo: string;
+  todo: TodoItemType;
   open: boolean;
-  isDone: boolean;
-  todoKey: string;
   index: number;
   dayKey: string;
   onClose: () => void;
-  onToggle: (key: string) => void;
+  onToggle: (dayKey: string, index: number) => void;
   onChange: (dayKey: string, index: number, value: string) => void;
-  onDelete: (dayKey: string, index: number, todoKey: string) => void;
+  onDelete: (dayKey: string, index: number) => void;
 };
 
 function InputModal({
   day,
   todo,
   open,
-  isDone,
   onClose,
   onToggle,
-  todoKey,
   index,
   dayKey,
   onChange,
   onDelete,
-}: InputModal) {
-  const [localValue, setLocalValue] = useState(todo);
+}: InputModalProps) {
+  const [localValue, setLocalValue] = useState(todo.content);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (localValue === "") {
-      setLocalValue(todo);
+      setLocalValue(todo.content);
     } else {
       onChange(dayKey, index, localValue);
     }
@@ -44,7 +47,7 @@ function InputModal({
   };
 
   const handleDelete = () => {
-    onDelete(dayKey, index, todoKey);
+    onDelete(dayKey, index);
     onClose();
   };
 
@@ -52,7 +55,7 @@ function InputModal({
     <Dialog
       open={open}
       onOpenChange={(isOpen) => {
-        if (!isOpen && localValue !== todo) {
+        if (!isOpen && localValue !== todo.content) {
           onChange(dayKey, index, localValue);
         }
         onClose();
@@ -80,12 +83,12 @@ function InputModal({
               type="text"
               value={localValue}
               onChange={(e) => setLocalValue(e.target.value)}
-              className={`text-3xl outline-none ${isDone ? "text-gray-500 line-through" : ""}`}
+              className={`text-3xl outline-none ${todo.is_done ? "text-gray-500 line-through" : ""}`}
             />
             {localValue && (
-              <div onClick={() => onToggle(todoKey)}>
+              <div onClick={() => onToggle(dayKey, index)}>
                 <FaRegCheckCircle
-                  className={`text-xl cursor-pointer ${isDone ? "text-gray-500" : ""}`}
+                  className={`text-xl cursor-pointer ${todo.is_done ? "text-gray-500" : ""}`}
                 />
               </div>
             )}

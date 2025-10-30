@@ -3,16 +3,22 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import InputModal from "./InputModal";
 import { useState } from "react";
 
-type Props = {
+export type TodoItemType = {
+  id: string;
+  content: string;
+  is_done: boolean;
+  index_in_day: number;
+};
+
+type TodoItemProps = {
   day: WeekDay;
   dayKey: string;
   index: number;
-  todo: string;
-  todos: string[];
-  doneMap: Record<string, boolean>;
+  firstEmptyIndex: number;
+  todo: TodoItemType;
   onChange: (dayKey: string, index: number, value: string) => void;
-  onToggle: (key: string) => void;
-  onDelete: (dayKey: string, index: number, todoKey: string) => void;
+  onToggle: (dayKey: string, index: number) => void;
+  onDelete: (dayKey: string, index: number) => void;
 };
 
 function TodoItem({
@@ -20,42 +26,48 @@ function TodoItem({
   dayKey,
   index,
   todo,
-  todos,
-  doneMap,
+  firstEmptyIndex,
   onChange,
   onToggle,
   onDelete,
-}: Props) {
+}: TodoItemProps) {
   const [showModal, setShowModal] = useState(false);
-
-  const firstEmptyIndex = todos.findIndex((t) => t === "");
-  const isEditable = index === firstEmptyIndex;
-  const todoKey = `${dayKey}-${index}`;
-  const isDone = doneMap[todoKey] ?? false;
+  const [inputValue, setInputValue] = useState(todo.content);
 
   return (
     <>
       <div
-        className={`z-10 py-1 border-b ${isEditable ? "border-gray-300/40 hover:border-oranje" : "border-gray-300/40"} ${isDone ? "text-gray-500 line-through" : ""}`}
+        className={`z-10 py-1 border-b ${index === firstEmptyIndex ? "border-gray-300/40 hover:border-oranje" : "border-gray-300/40"} ${todo.is_done ? "text-gray-500 line-through" : ""}`}
       >
         <div className="flex w-full items-center gap-2">
           <input
             type="text"
-            value={todo}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                onChange(dayKey, index, inputValue);
+              }
+            }}
+            onBlur={() => {
+              if (inputValue.trim() !== todo.content) {
+                onChange(dayKey, index, inputValue);
+              }
+            }}
             onClick={(e) => {
               if ((e.target as HTMLElement).closest(".check-icon")) return;
-              if (todo) setShowModal(true);
+              if (inputValue) setShowModal(true);
             }}
-            onChange={(e) => onChange(dayKey, index, e.target.value)}
-            disabled={!isEditable && todo === ""}
-            className={`flex-1 min-w-0 bg-transparent outline-none ${isDone ? "text-gray-500" : "text-gray-300"} ${isEditable ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"} ${todo ? "cursor-pointer" : "cursor-auto"}`}
+            disabled={!todo.content && index !== firstEmptyIndex}
+            className={`flex-1 min-w-0 bg-transparent outline-none ${todo.is_done ? "text-gray-500" : "text-gray-300"} ${index === firstEmptyIndex ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"} ${todo.content ? "cursor-pointer" : "cursor-auto"}`}
           />
-          {todo && (
+          {todo.content && (
             <div
-              className={`check-icon cursor-pointer transition-colors ${isDone ? "text-gray-500" : "text-gray-300"}`}
+              className={`check-icon cursor-pointer transition-colors ${todo.is_done ? "text-gray-500" : "text-gray-300"}`}
               onClick={(e) => {
                 e.stopPropagation();
-                onToggle(todoKey);
+                onToggle(dayKey, index);
               }}
             >
               <FaRegCheckCircle />
@@ -66,12 +78,10 @@ function TodoItem({
       {showModal && (
         <InputModal
           day={day}
-          open={showModal}
           todo={todo}
-          isDone={isDone}
-          todoKey={todoKey}
           index={index}
           dayKey={dayKey}
+          open={showModal}
           onClose={() => setShowModal(false)}
           onToggle={onToggle}
           onChange={onChange}

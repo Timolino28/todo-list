@@ -1,27 +1,34 @@
 import type { WeekDay } from "~/utils/getWeekdays";
 import TodoItem from "./TodoItem";
 
-type Props = {
+export type TodoItemType = {
+  id: string;
+  content: string;
+  is_done: boolean;
+  index_in_day: number;
+};
+
+type WeekDayColumnProps = {
   day: WeekDay;
-  todos: string[];
+  todos: Record<string, TodoItemType[]>;
   today: Date;
-  doneMap: Record<string, boolean>;
   onChange: (dayKey: string, index: number, value: string) => void;
-  onToggle: (key: string) => void;
-  onDelete: (dayKey: string, index: number, todoKey: string) => void;
+  onToggle: (dayKey: string, index: number) => void;
+  onDelete: (dayKey: string, index: number) => void;
 };
 
 function WeekDayColumn({
   day,
   todos,
   today,
-  doneMap,
   onChange,
   onToggle,
   onDelete,
-}: Props) {
+}: WeekDayColumnProps) {
   const isToday = day.date.toDateString() === today.toDateString();
   const dayKey = day.date.toDateString();
+  const dayTodos = todos[dayKey] || [];
+  const firstEmptyIndex = dayTodos.findIndex((t) => t.content === "");
 
   return (
     <div className="w-full">
@@ -44,15 +51,14 @@ function WeekDayColumn({
 
       {/* Todos */}
       <div className="mt-3 flex flex-col gap-1">
-        {todos.map((todo, index) => (
+        {dayTodos.map((todo, index) => (
           <TodoItem
-            key={index}
+            key={todo.id || index}
             day={day}
             dayKey={dayKey}
             index={index}
             todo={todo}
-            todos={todos}
-            doneMap={doneMap}
+            firstEmptyIndex={firstEmptyIndex}
             onChange={onChange}
             onToggle={onToggle}
             onDelete={onDelete}

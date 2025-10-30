@@ -110,7 +110,6 @@ export const useTodos = (weeks: WeekDay[]) => {
       }
 
       setTodos(todosByDay);
-      //console.log(todos);
       setLoading(false);
     };
     loadAllTodos();
@@ -205,7 +204,6 @@ export const useTodos = (weeks: WeekDay[]) => {
 
     const dayId = await getDayId(userId, dayKey);
     if (!dayId) return;
-    console.log(dayId);
 
     //DB-Update
     const { error } = await supabase

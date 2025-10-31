@@ -1,7 +1,7 @@
 import type { WeekDay } from "~/utils/getWeekdays";
 import { FaRegCheckCircle } from "react-icons/fa";
 import InputModal from "./InputModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type TodoItemType = {
   id: string;
@@ -33,6 +33,10 @@ function TodoItem({
 }: TodoItemProps) {
   const [showModal, setShowModal] = useState(false);
   const [inputValue, setInputValue] = useState(todo.content);
+
+  useEffect(() => {
+    setInputValue(todo.content);
+  }, [todo.content]);
 
   return (
     <>

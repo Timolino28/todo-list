@@ -37,13 +37,13 @@ function WeekDayColumn({
         className={`flex justify-between border-b-2 ${isToday ? "border-oranje" : "border-gray-300"}`}
       >
         <h2
-          className={`md:text-xl font-bold ${isToday ? "text-oranje" : "text-gray-300"}`}
+          className={`text-xl font-bold ${isToday ? "text-oranje" : "text-gray-300"}`}
         >
           {day.date.getDate()}.{" "}
           {day.date.toLocaleDateString("de-DE", { month: "short" })}
         </h2>
         <div
-          className={`md:text-xl ${isToday ? "text-oranje/60" : "text-gray-300/40"}`}
+          className={`text-xl ${isToday ? "text-oranje/60" : "text-gray-300/40"}`}
         >
           {day.shortLabel}
         </div>

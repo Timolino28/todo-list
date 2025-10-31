@@ -48,19 +48,25 @@ function Header({
   const currentMonth = weeks[0]?.date.toLocaleString("de-DE", {
     month: "long",
   });
+  const currentMonthShort = weeks[0]?.date.toLocaleString("de-DE", {
+    month: "short",
+  });
   const currentYear = weeks[0]?.date.getFullYear();
 
   return (
     <div className="flex justify-between items-center md:p-10 p-5">
-      <div className="md:text-4xl text-2xl font-bold text-gray-300">
+      <div className="md:block hidden text-4xl font-bold text-gray-300">
         {currentMonth} {currentYear}
       </div>
-      <div className="flex items-center md:gap-10 gap-5">
+      <div className="md:hidden block text-2xl font-bold text-gray-300">
+        {currentMonthShort} {currentYear}
+      </div>
+      <div className="flex items-center md:gap-10 gap-3">
         <div
           className={`transition-opacity duration-200 ${weekOffset !== 0 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
           <Button
-            className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-20 md:h-10 md:px-4 md:w-auto rounded-full"
+            className="cursor-pointer bg-oranje hover:bg-oranje border-1 border-oranje/20 hover:border-orange-300/50 h-8 w-18 md:h-10 md:px-4 md:w-auto rounded-full"
             onClick={onResetWeek}
           >
             Zurück

@@ -63,7 +63,7 @@ function InputModal({
     >
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="bg-gray-300 py-5"
+        className="bg-gray-300 py-5 md:px-0 px-4"
       >
         <form onSubmit={handleSubmit}>
           <DialogHeader>

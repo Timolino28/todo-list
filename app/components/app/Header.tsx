@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router";
 import { signOut } from "~/services/authService";
 import { type WeekDay } from "~/utils/getWeekdays";
+import DeleteDialog from "../app/DeleteDialog";
 
 import { Button } from "../ui/button";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { PiGearFill } from "react-icons/pi";
 import { RxAvatar } from "react-icons/rx";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useState } from "react";
 
 type HeaderProps = {
   onPrevWeek: () => void;
@@ -32,6 +33,8 @@ function Header({
   weeks,
   weekOffset,
 }: HeaderProps) {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
   const navigate = useNavigate();
 
   const handelSignOut = async () => {
@@ -97,11 +100,6 @@ function Header({
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-gray-300">
               <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer bg-gray-300 focus:bg-gray-300">
-                  <PiGearFill />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={handelSignOut}
                   className="cursor-pointer bg-gray-300 focus:bg-gray-300"
@@ -109,9 +107,23 @@ function Header({
                   <FiLogOut />
                   Logout
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onSelect={() => {
+                    setOpenDeleteDialog(true);
+                  }}
+                  className="cursor-pointer bg-gray-300 focus:bg-gray-300"
+                >
+                  <PiGearFill />
+                  Delete Account
+                </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+          <DeleteDialog
+            open={openDeleteDialog}
+            onOpenChange={setOpenDeleteDialog}
+          />
         </div>
       </div>
     </div>

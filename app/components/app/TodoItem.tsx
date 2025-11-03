@@ -64,11 +64,11 @@ function TodoItem({
               if (inputValue) setShowModal(true);
             }}
             disabled={!todo.content && index !== firstEmptyIndex}
-            className={`flex-1 min-w-0 bg-transparent outline-none ${todo.is_done ? "text-gray-500" : "text-gray-300"} ${index === firstEmptyIndex ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"} ${todo.content ? "cursor-pointer" : "cursor-auto"}`}
+            className={`md:text-[18px] text-2xl flex-1 min-w-0 bg-transparent outline-none ${todo.is_done ? "text-gray-500" : "text-gray-300"} ${index === firstEmptyIndex ? "cursor-auto focus:shadow-md focus:p-2" : "cursor-default"} ${todo.content ? "cursor-pointer" : "cursor-auto"}`}
           />
           {todo.content && (
             <div
-              className={`check-icon cursor-pointer transition-colors ${todo.is_done ? "text-gray-500" : "text-gray-300"}`}
+              className={`md:text-[18px] text-2xl check-icon cursor-pointer transition-colors ${todo.is_done ? "text-gray-500" : "text-gray-300"}`}
               onClick={(e) => {
                 e.stopPropagation();
                 onToggle(dayKey, index);

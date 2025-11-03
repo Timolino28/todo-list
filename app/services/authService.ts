@@ -57,4 +57,16 @@ const signOut = async (): Promise<AuthResult> => {
   return { error: error ?? null };
 };
 
-export { signUp, signIn, signInWithGoogle, signOut };
+const deleteUserAccount = async (userId: string) => {
+  const { data, error } = await supabase.functions.invoke("delete_user", {
+    body: { user_id: userId },
+  });
+
+  if (error) {
+    console.error("Fehler beim Löschen des Accounts:", error);
+    throw error;
+  }
+  return data;
+};
+
+export { signUp, signIn, signInWithGoogle, signOut, deleteUserAccount };

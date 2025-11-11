@@ -9,6 +9,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@netlify/vite-plugin-react-router": "^2.1.2",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
